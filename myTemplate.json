@@ -1,9 +1,9 @@
 {
-  "CssLink":[
+  "CssLinks":[
     "<link rel=\"stylesheet\" href=\"style/css/kw.css\">",
     "<link rel=\"stylesheet\" href=\"<%=addCss%>\">"
   ],
-  "JsSrc":[
+  "JsSrcs":[
     "<script src=\"style/lib/require.js\"></script>"
   ]
 }

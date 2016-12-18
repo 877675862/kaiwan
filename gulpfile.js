@@ -25,10 +25,12 @@ var fileInclude = require('gulp-file-include');
 var OpenFU = require('gulp-open');
 var Footer = require('gulp-footer');
 var addFS = require('gulp-add');
+var RePlace = require('gulp-replace');
+
 // It's so long...maybe you need gulp-load-plugins.
 // get json strings.
 var fs = require('fs');
-var MyTemplate = JSON.parse(fs.readFileSync('./myTemplate.json')); // To replace the .template()
+var LinkAndSrc = JSON.parse(fs.readFileSync('myTemplate.json')); // To replace the .template()
 
 
 gulp.task('css',function(){
@@ -46,27 +48,13 @@ gulp.task('js',function(){
     gulp.src('src/script/*.js')
         .pipe(gulp.dest('style/js'));
 });
-gulp.task('html',function(){
-    gulp.src(['/**/*.html','index.html'])
+gulp.task('temp',function(){
+    gulp.src('index.html')
         .pipe(template({
-            CssLink:MyTemplate.cssLinks,
-            JsSrc:MyTemplate.jsSrcs,
-        }))
-        //.pipe(fileInclude({
-        //    prefix:'@@',
-        //    basepath:'@file'
-        //}))
-        .pipe(gulp.dest(''))
-        .pipe(connect.reload());
-});
-gulp.watch(['**/*.html','!src/**/*.html'],['html']);
-
-gulp.task('include',function(){
-    gulp.src(['index.html'])
-        .pipe(fileInclude({
-            prefix:"@@",
-            basepath:"@file"
-        }))
-        .pipe(gulp.dest(''))
-
+                CssLink:LinkAndSrc.CssLinks,
+                JsSrc:LinkAndSrc.JsSrcs
+            }))
+        .pipe(RePlace('>,<link','>'+'\n'+'    '+'<link'))
+        .pipe(gulp.dest('.dist/html'))
+        
 });

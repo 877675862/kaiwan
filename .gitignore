@@ -1,4 +1,8 @@
+# ignore JetBraint IDE setting
 .idea
+# ignore node-modules
 node_modules
-.dist
+# ignore visual studio code IDE setting
 .vscode
+# ignore some dirctiery of project
+.dist
